@@ -5,45 +5,45 @@ const SESSION_TIME = 25 * 60 * 1000;
 const BREAK_TIME = 5 * 60 * 1000;
 
 const formatTime = (time: number) => {
-  const minutes = Math.floor(time / 60000)
-  const seconds = Math.floor(time % 60000) / 1000
-  const leadingMinZero = minutes < 10 ? '0' : ''
-  const leadingSecZero = seconds < 10 ? '0' : ''
-  return `${leadingMinZero}${minutes}:${leadingSecZero}${seconds}`
-}
+  const minutes = Math.floor(time / 60000);
+  const seconds = Math.floor(time % 60000) / 1000;
+  const leadingMinZero = minutes < 10 ? '0' : '';
+  const leadingSecZero = seconds < 10 ? '0' : '';
+  return `${leadingMinZero}${minutes}:${leadingSecZero}${seconds}`;
+};
 
 const Timer: React.FC = () => {
-  const [isRunning, setIsRunning] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(0)
+  const [isRunning, setIsRunning] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0);
 
   const startTimer = (time: number) => {
-    setIsRunning(true)
-    setTimeLeft(time)
-  }
+    setIsRunning(true);
+    setTimeLeft(time);
+  };
 
   const stopTimer = () => {
-    setIsRunning(false)
-  }
+    setIsRunning(false);
+  };
   useEffect(() => {
-    let interval: NodeJS.Timeout
+    let interval: NodeJS.Timeout;
     if (isRunning) {
       interval = setInterval(() => {
         setTimeLeft(x => {
           const newTime = x - 1000;
           if (newTime <= 0) {
-            setIsRunning(false) // TODO: show message when done
+            setIsRunning(false); // TODO: show message when done
             return 0;
           }
 
           return newTime;
-        })
-      }, 1000)
+        });
+      }, 1000);
     }
 
     return () => {
-      clearInterval(interval)
-    }
-  }, [isRunning])
+      clearInterval(interval);
+    };
+  }, [isRunning]);
 
   return (
     <div>
@@ -66,7 +66,7 @@ const Timer: React.FC = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Timer;
